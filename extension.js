@@ -49,16 +49,22 @@ var main = function() {
       if (jQuery('.dl').length < tracks.length) {
 				jQuery('ul.tools').each(function(index, track) {
           var song = tracks[index];
-          var title = song.song;
-          var artist = song.artist;
+          var artist = song.artist;          
           var id = song.id;
           var key = song.key;
+            // Sometimes the title is too long and is ellipsisisisisized in the JSON data
+          var title = jQuery("[data-itemid='" + id + "']").children()[1].children[1].title.split(" - ")[0];
+
           console.log("index: "+index);
           var hasDownloadButton = jQuery(track).data("hasDownloadButton");
           if (typeof(hasDownloadButton) === 'undefined' || !hasDownloadButton){
             jQuery.getJSON("/serve/source/"+ id + "/" + key, function(data) {
               var download_url = data.url;
-              jQuery(track).prepend('<li class="dl"><table class="spacer"></table><a target="_top" href="'+download_url+'"' + ' download="' + artist + ' - ' + title + '.mp3"' + '><table class="arrow"><tr><td><div class="rect-arrow"></div></td></tr><tr><td class="'+triArrowString+'"></td></tr></table></a></li>');
+                if (data.type != "SC")
+                    jQuery(track).
+                    jQuery(track).prepend('<li class="dl"><table class="spacer"></table><a target="_top" href="'+download_url+'"' + ' download="' + artist + ' - ' + title + '.mp3"' + '><table class="arrow"><tr><td><div class="rect-arrow"></div></td></tr><tr><td class="'+triArrowString+'"></td></tr></table></a></li>');
+                else 
+                    jQuery(track).prepend('<li class="dl"><table class="spacer"></table><a target="_top" href="http://ec2-107-21-204-73.compute-1.amazonaws.com:9000/id3/fix?url='+download_url+'&artist=' + artist + '&title=' + title + '"'+ '><table class="arrow"><tr><td><div class="rect-arrow"></div></td></tr><tr><td class="'+triArrowString+'"></td></tr></table></a></li>');
             });
             jQuery(track).data("hasDownloadButton", true);
           }
