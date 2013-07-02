@@ -53,7 +53,7 @@ var main = function() {
 					var id = song.id;
 					var key = song.key;
 					// Sometimes the title is too long and is ellipsisisisisized in the JSON data
-					var title = jQuery("[data-itemid='" + id + "']").children()[1].children[1].title.split(" - ")[0];
+					var title = jQuery("[data-itemid='" + id + "'] > .section-player > .track_name > a.track").attr('title').toString().split(" - ")[0];
 
 					console.log("index: "+index);
 					var hasDownloadButton = jQuery(track).data("hasDownloadButton");
