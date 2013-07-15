@@ -63,7 +63,7 @@ var main = function() {
 						if (data.type != "SC")
 							jQuery(track).prepend('<li class="dl"><table class="spacer"></table><a target="_top" href="'+download_url+'"' + ' download="' + artist + ' - ' + title + '.mp3"' + '><table class="arrow"><tr><td><div class="rect-arrow"></div></td></tr><tr><td class="'+triArrowString+'"></td></tr></table></a></li>');
 						else 
-							jQuery(track).prepend('<li class="dl"><table class="spacer"></table><a target="_top" href="http://lander.in/id3/fix?url='+download_url+'&artist=' + artist + '&title=' + title + '"'+ '><table class="arrow"><tr><td><div class="rect-arrow"></div></td></tr><tr><td class="'+triArrowString+'"></td></tr></table></a></li>');
+							jQuery(track).prepend('<li class="dl"><table class="spacer"></table><a target="_top" href="http://lander.in/id3/fix?url='+encodeURIComponent(download_url)+'&artist=' + encodeURIComponent(artist) + '&title=' + encodeURIComponent(title) + '"'+ '><table class="arrow"><tr><td><div class="rect-arrow"></div></td></tr><tr><td class="'+triArrowString+'"></td></tr></table></a></li>');
 						});
 						jQuery(track).data("hasDownloadButton", true);
 					}
